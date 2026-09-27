@@ -1,0 +1,10 @@
+# Sistem operasi
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Vercel (jika memakai CLI)
+.vercel
+
+# Node (jika suatu saat menambah build tool)
+node_modules/

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>
+  window.onerror = function(msg, url, line, col, error) {
+    alert("JS Error: " + msg + " (Line " + line + ")");
+    return false;
+  };
+  window.addEventListener('unhandledrejection', function(event) {
+    alert("Promise Error: " + (event.reason ? event.reason.message || event.reason : "Unknown"));
+  });
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Wedding of Mohd Razi &amp; Norfaiezah — Ahad, 11 Oktober 2026</title>
+  <meta name="description" content="Undangan pernikahan digital Norfaiezah binti Nazri & Mohd Razi bin Konek — Ahad, 11 Oktober 2026, Surau Kampung Dato Sagor." />
+  <meta name="theme-color" content="#004a00" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="The Wedding of Mohd Razi &amp; Norfaiezah" />
+  <meta property="og:description" content="Ahad, 11 Oktober 2026 — Surau Kampung Dato Sagor. Merupakan kehormatan bagi kami apabila Anda berkenan hadir." />
+  <meta property="og:image" content="Photo/Main.jpeg" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+  <!-- Fonts: Cormorant Garamond (serif mewah) + Great Vibes (script) + Plus Jakarta Sans (sans) + Amiri (arab) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="preload" as="image" href="Photo/Main.jpeg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================== SAMPUL / LANDING PAGE ===================== -->
+  <section class="cover" id="cover" aria-label="Sampul undangan">
+    <div class="cover__bg" role="img" aria-label="Foto Norfaiezah dan Mohd Razi"></div>
+    <div class="cover__veil"></div>
+
+    <div class="cover__content">
+      <svg class="orn-star cover__star" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M24 2c1.7 14.5 9.5 22.3 22 22-12.5-.3-20.3 7.5-22 22-1.7-14.5-9.5-22.3-22-22 12.5.3 20.3-7.5 22-22z"/>
+      </svg>
+
+      <p class="cover__lead anim a1">The Wedding Of</p>
+      <h1 class="cover__names anim a2">Mohd Razi <span class="amp">&amp;</span> Norfaiezah</h1>
+      <p class="cover__date anim a3">Ahad &middot; 11 &middot; Oktober &middot; 2026</p>
+
+      <div class="cover__guest glass anim a4">
+        <p class="cover__guest-label">Khas Untuk</p>
+        <p class="cover__guest-sub">Dato'/Datin/Tuan/Puan/Encik/Cik</p>
+        <p class="cover__guest-name" id="guest-name">Tetamu Jemputan</p>
+      </div>
+
+      <button class="btn-gold anim a5" id="btn-open" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M3.5 7.5 12 13.5l8.5-6"/></svg>
+        <span>Buka Jemputan</span>
+      </button>
+
+
+    </div>
+  </section>
+
+  <!-- ===================== KONTEN UTAMA ===================== -->
+  <main class="page" id="page">
+
+    <!-- HERO: salam Islami + foto + countdown -->
+    <section class="sec sec--hero" id="beranda">
+      <div class="container">
+        <p class="bismillah" data-reveal dir="rtl">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+
+        <figure class="quote-card" data-reveal data-delay="100">
+          <p class="quote-ar" dir="rtl">وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةً</p>
+          <p class="quote-id">&ldquo;Dan di antara tanda-tanda kebesaran-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berpikir.&rdquo;</p>
+          <figcaption class="quote-src">&mdash; QS. Ar-Rum : 21 &mdash;</figcaption>
+        </figure>
+
+        <div class="divider" data-reveal data-delay="150">
+          <span class="line"></span>
+          <svg class="orn-star" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 2c1.7 14.5 9.5 22.3 22 22-12.5-.3-20.3 7.5-22 22-1.7-14.5-9.5-22.3-22-22 12.5.3 20.3-7.5 22-22z"/></svg>
+          <span class="line"></span>
+        </div>
+
+        <div class="hero-photo arch" data-reveal data-delay="200">
+          <img src="Photo/Main.jpeg" alt="Norfaiezah dan Mohd Razi" fetchpriority="high" />
+        </div>
+
+        <h2 class="hero-names" data-reveal data-delay="100">Mohd Razi <span class="amp">&amp;</span> Norfaiezah</h2>
+        <p class="hero-date" data-reveal data-delay="150">Ahad, 11 Oktober 2026</p>
+
+        <div class="countdown" id="countdown" data-reveal data-delay="200" aria-label="Hitung mundur menuju hari pernikahan">
+          <div class="cd-box"><span class="cd-num gold-grad-text" id="cd-days">00</span><span class="cd-label">Hari</span></div>
+          <div class="cd-box"><span class="cd-num gold-grad-text" id="cd-hours">00</span><span class="cd-label">Jam</span></div>
+          <div class="cd-box"><span class="cd-num gold-grad-text" id="cd-mins">00</span><span class="cd-label">Menit</span></div>
+          <div class="cd-box"><span class="cd-num gold-grad-text" id="cd-secs">00</span><span class="cd-label">Detik</span></div>
+        </div>
+        <p class="countdown-done" id="countdown-done" hidden>Alhamdulillah, hari bahagia telah tiba 🤍</p>
+      </div>
+    </section>
+
+    <!-- PROFIL Pengantin -->
+    <section class="sec sec--couple" id="Pengantin">
+      <div class="container">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow">Dengan Memohon Rahmat &amp; Reda Allah SWT</p>
+          <h2 class="sec-title">Pengantin</h2>
+          <div class="songket" aria-hidden="true"></div>
+        </header>
+
+        <div class="p-grid">
+          <article class="p-card" data-reveal>
+            <span class="p-role">Pengantin Lelaki</span>
+            <div class="p-photo arch">
+              <img src="Photo/gallery1.jpeg" alt="Mohd Razi bin Konek" loading="lazy" />
+            </div>
+            <h3 class="p-name">Mohd Razi bin Konek</h3>
+            <p class="p-meta">3 Mei 1997</p>
+            <p class="p-bio">Lelaki berhati tenang yang percaya bahwa pernikahan adalah ikhtiar terindah untuk saling menyempurnakan.</p>
+          </article>
+
+          <div class="gunungan" data-reveal data-delay="150" aria-hidden="true">
+            <svg viewBox="0 0 64 72" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+              <path d="M32 4c7 9.5 15.5 17.5 15.5 30C47.5 48.5 40 60 32 68c-8-8-15.5-19.5-15.5-34C16.5 21.5 25 13.5 32 4z"/>
+              <path d="M32 16c4.4 6.2 9.7 11.3 9.7 19.3 0 8.9-4.9 17.4-9.7 22.7-4.8-5.3-9.7-13.8-9.7-22.7 0-8 5.3-13.1 9.7-19.3z" opacity=".55"/>
+              <circle cx="32" cy="36" r="3.2"/>
+            </svg>
+          </div>
+
+          <article class="p-card" data-reveal data-delay="100">
+            <span class="p-role">Pengantin Perempuan</span>
+            <div class="p-photo arch">
+              <img src="Photo/gallery2.jpeg" alt="Norfaiezah binti Nazri" loading="lazy" />
+            </div>
+            <h3 class="p-name">Norfaiezah binti Nazri</h3>
+            <p class="p-meta">Pekanbaru, 10 September 2005</p>
+            <p class="p-bio">Gadis lembut yang membesar bersama doa, menantikan hari penuh berkat bersama pasangannya.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAIL ACARA & PETA -->
+    <section class="sec sec--events tint" id="acara">
+      <div class="container">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow">Save The Date</p>
+          <h2 class="sec-title">Masa &amp; Tempat</h2>
+          <div class="songket" aria-hidden="true"></div>
+        </header>
+
+        <article class="e-card" data-reveal>
+          <span class="e-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 10.5h16M8.5 3.5v4M15.5 3.5v4"/><path d="M12 16.6s-2.6-1.7-2.6-3.4c0-.9.7-1.5 1.5-1.5.5 0 .9.2 1.1.6.2-.4.6-.6 1.1-.6.8 0 1.5.6 1.5 1.5 0 1.7-2.6 3.4-2.6 3.4z"/></svg>
+          </span>
+          <h3 class="e-title">Majlis Walimatul Urus</h3>
+          <p class="e-date">Ahad, 11 Oktober 2026</p>
+          <p class="e-time">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+            12:00 PM &ndash; 4:00 PM
+          </p>
+          <div class="songket" aria-hidden="true"></div>
+          <p class="e-venue">Surau Kampung Dato Sagor</p>
+          <p class="e-addr">Kampung Gajah, Perak Darul Ridzuan</p>
+        </article>
+
+        <a class="btn-gold btn-block" data-reveal target="_blank" rel="noopener"
+           href="https://maps.google.com/maps?q=Surau+Kampung+Dato+Sagor">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-5.6-7-11a7 7 0 1 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <span>Buka Google Maps</span>
+        </a>
+
+        <div class="map-wrap" data-reveal data-delay="100">
+          <iframe title="Peta lokasi majlis — Surau Kampung Dato Sagor"
+                  src="https://maps.google.com/maps?q=Surau+Kampung+Dato+Sagor&z=15&output=embed"
+                  loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <a class="btn-ghost btn-block" data-reveal target="_blank" rel="noopener"
+           href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=Pernikahan%20Mohd%20Razi%20%26%20Norfaiezah&amp;dates=20261011T040000Z/20261011T080000Z&amp;location=Surau%20Kampung%20Dato%20Sagor%2C%20Kampung%20Gajah%2C%20Perak&amp;details=Majlis%20Walimatul%20Urus">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 10.5h16M8.5 3.5v4M15.5 3.5v4"/><path d="M10.6 16.2l2.6-3.4M10.4 12.9h.01M13.8 16.2h.01"/></svg>
+          <span>Simpan ke Google Calendar</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- GALERI FOTO -->
+    <section class="sec sec--gallery" id="galeri">
+      <div class="container container--wide">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow">Our Gallery</p>
+          <h2 class="sec-title">Galeri Momen</h2>
+          <div class="songket" aria-hidden="true"></div>
+        </header>
+
+        <div class="masonry" id="masonry">
+          <figure class="g-item" data-reveal>
+            <img src="Photo/Main.jpeg" alt="Mohd Razi & Norfaiezah" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-reveal data-delay="60">
+            <img src="Photo/gallery1.jpeg" alt="Momen Indah" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-reveal data-delay="120">
+            <img src="Photo/gallery2.jpeg" alt="Kenangan Bersama" loading="lazy" />
+          </figure>
+          <figure class="g-item" data-reveal>
+            <img src="Photo/gallery3.jpeg" alt="Cinta Kami" loading="lazy" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP & UCAPAN -->
+    <section class="sec sec--rsvp tint" id="rsvp">
+      <div class="container">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow">RSVP &amp; Prayers</p>
+          <h2 class="sec-title">Pengesahan Kehadiran &amp; Ucapan</h2>
+          <div class="songket" aria-hidden="true"></div>
+        </header>
+        <p class="sec-sub" data-reveal>Sila sahkan kehadiran anda dan tinggalkan doa terbaik untuk pasangan pengantin.</p>
+
+        <form class="rsvp-form card" id="rsvp-form" data-reveal novalidate>
+          <div class="field">
+            <label for="f-nama">Nama</label>
+            <input id="f-nama" name="nama" type="text" placeholder="Nama Anda" maxlength="60" required />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="f-hadir">Kehadiran</label>
+              <select id="f-hadir" name="hadir">
+                <option value="Hadir">Hadir</option>
+                <option value="Berhalangan">Berhalangan</option>
+                <option value="Masih Belum Pasti">Masih Belum Pasti</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-jumlah">Bilangan Tetamu</label>
+              <select id="f-jumlah" name="jumlah">
+                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+              </select>
+            </div>
+          </div>
+                    <div class="field">
+            <label for="f-pesan">Ucapan &amp; Doa (Pilihan)</label>
+            <textarea id="f-pesan" name="pesan" rows="4" placeholder="Sila tuliskan doa dan harapan terbaik anda&hellip;" maxlength="500" ></textarea>
+          </div>
+                    <div class="field">
+            <label>Photo Booth Digital (Pilihan)</label>
+            <button type="button" class="btn-gold btn-block" id="btn-photobooth" style="margin-top:8px; background: #fff; color: var(--gold-500); border: 2px solid var(--gold-500);">Buka Photo Booth 📸</button>
+            <img id="photo-preview" style="display:none; width: 100%; max-height: 400px; object-fit: contain; margin-top: 10px; border-radius: 8px; border: 2px solid var(--gold-300);" />
+            <small style="font-size: 0.75rem; color: var(--rose-800); display: block; margin-top: 6px;">Ambil 3 gaya berbeza (Pemasa 3 saat)!</small>
+          </div>
+          <button class="btn-gold btn-block" type="submit" id="btn-submit">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12c0 4.1-4 7.4-9 7.4-1 0-2-.1-2.9-.4L4 20.5l1.3-3.4C3.9 15.8 3 14 3 12c0-4.1 4-7.4 9-7.4s9 3.3 9 7.4z"/></svg>
+            <span>Hantar Ucapan</span>
+          </button>
+        </form>
+
+        <div class="ucapan-wrap" data-reveal>
+          <h3 class="ucapan-title">Doa &amp; Harapan <span id="ucapan-count" class="ucapan-count"></span></h3>
+          <div class="ucapan-list" id="ucapan-list" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- PENUTUP -->
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-quote" data-reveal>Semoga dengan kehadiran dan iringan doa restu para tetamu akan menyerikan lagi majlis kami dan diberkati Allah SWT. Terima kasih.</p>
+        <p class="footer-thanks" data-reveal data-delay="80">Wassalamu&rsquo;alaikum Warahmatullahi Wabarakatuh</p>
+        <p class="footer-names" data-reveal data-delay="140">Mohd Razi &amp; Norfaiezah</p>
+        <p class="footer-date" data-reveal data-delay="180">11 &middot; 10 &middot; 2026</p>
+        <div class="divider divider--light" data-reveal data-delay="220">
+          <span class="line"></span>
+          <svg class="orn-star" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 2c1.7 14.5 9.5 22.3 22 22-12.5-.3-20.3 7.5-22 22-1.7-14.5-9.5-22.3-22-22 12.5.3 20.3-7.5 22-22z"/></svg>
+          <span class="line"></span>
+        </div>
+        <p class="footer-credit" data-reveal data-delay="260">Ikhlas daripada keluarga kedua-dua pengantin</p>
+      </div>
+    </footer>
+  </main>
+
+  <!-- ===================== ELEMEN MELAYANG ===================== -->
+  <canvas id="petals" class="petals" aria-hidden="true"></canvas>
+
+  <audio id="bg-music" src="Song/bgm.mp3" loop></audio>
+
+  <button class="music-btn" id="btn-music" type="button" aria-label="Putar musik latar" title="Putar / jeda musik">
+    <span class="music-disc">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M9.5 17.5V6.2l9-1.8v11.1"/>
+        <circle cx="7.2" cy="17.6" r="2.3"/><circle cx="16.2" cy="15.6" r="2.3"/>
+      </svg>
+    </span>
+  </button>
+
+  <nav class="dock" id="dock" aria-label="Navigasi undangan">
+    <a href="#beranda" class="dock-link is-active" aria-label="Beranda">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11.5 12 4l8.5 7.5"/><path d="M5.8 10.2V20h12.4v-9.8"/></svg>
+    </a>
+    <a href="#Pengantin" class="dock-link" aria-label="Pengantin">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9.2" cy="13.4" r="5.2"/><circle cx="14.8" cy="10.6" r="5.2"/></svg>
+    </a>
+    <a href="#acara" class="dock-link" aria-label="Acara">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="15" rx="2.5"/><path d="M4 10.5h16M8.5 3.5v4M15.5 3.5v4"/></svg>
+    </a>
+    <a href="#galeri" class="dock-link" aria-label="Galeri">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.5"/><circle cx="8.7" cy="9.8" r="1.6"/><path d="M4.5 17.2l4.7-4.7 3.4 3.4 2.9-2.9 4 4"/></svg>
+    </a>
+    <a href="#rsvp" class="dock-link" aria-label="Ucapan">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12c0 4.1-4 7.4-9 7.4-1 0-2-.1-2.9-.4L4 20.5l1.3-3.4C3.9 15.8 3 14 3 12c0-4.1 4-7.4 9-7.4s9 3.3 9 7.4z"/></svg>
+    </a>
+  </nav>
+
+  <!-- Lightbox galeri -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Pratinjau foto">
+    <button class="lb-btn lb-close" id="lb-close" type="button" aria-label="Tutup">&times;</button>
+    <button class="lb-btn lb-prev" id="lb-prev" type="button" aria-label="Foto sebelumnya">&lsaquo;</button>
+    <img class="lb-img" id="lb-img" src="" alt="" />
+    <p class="lb-cap" id="lb-cap"></p>
+    <button class="lb-btn lb-next" id="lb-next" type="button" aria-label="Foto berikutnya">&rsaquo;</button>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  
+    <div id="pb-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:#000; flex-direction:column; align-items:center; justify-content:center;">
+    <button type="button" id="pb-close" style="position:absolute; top:20px; right:20px; font-size:3rem; color:#fff; background:none; border:none; z-index:10000;">&times;</button>
+    <video id="pb-video" autoplay playsinline style="width:100%; height:75vh; object-fit:cover; transform: scaleX(-1);"></video>
+    <img id="pb-strip" style="display:none; width:100%; height:75vh; object-fit:contain; background:#fff; padding:10px;" />
+    <div id="pb-timer" style="position:absolute; top:40%; font-size:8rem; color:#fff; font-weight:bold; text-shadow:0 4px 20px rgba(0,0,0,0.8); z-index:10000;"></div>
+    <div id="pb-flash" style="display:none; position:absolute; inset:0; background:#fff; z-index:9998; opacity:0; transition: opacity 0.2s;"></div>
+    <div style="padding:20px; width:100%; text-align:center;">
+      <button type="button" id="pb-start" class="btn-gold" style="width:100%; padding:15px; font-size:1.2rem;">Mula (3 Gambar)</button>
+      <button type="button" id="pb-done" class="btn-gold" style="display:none; width:100%; padding:15px; font-size:1.2rem;">Guna Gambar Ini</button>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>
