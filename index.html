@@ -246,11 +246,16 @@
             <label for="f-pesan">Ucapan &amp; Doa (Pilihan)</label>
             <textarea id="f-pesan" name="pesan" rows="4" placeholder="Sila tuliskan doa dan harapan terbaik anda&hellip;" maxlength="500" ></textarea>
           </div>
-                    <div class="field">
-            <label>Photo Booth Digital (Pilihan)</label>
-            <button type="button" class="btn-gold btn-block" id="btn-photobooth" style="margin-top:8px; background: #fff; color: var(--gold-500); border: 2px solid var(--gold-500);">Buka Photo Booth 📸</button>
-            <img id="photo-preview" style="display:none; width: 100%; max-height: 400px; object-fit: contain; margin-top: 10px; border-radius: 8px; border: 2px solid var(--gold-300);" />
-            <small style="font-size: 0.75rem; color: var(--rose-800); display: block; margin-top: 6px;">Ambil 3 gaya berbeza (Pemasa 3 saat)!</small>
+                              <div class="field photobooth-cta" style="margin-top: 24px; padding: 20px; background: rgba(201, 162, 75, 0.08); border: 2px dashed var(--gold-500); border-radius: 16px; text-align: center;">
+            <div style="font-size: 2.5rem; margin-bottom: 4px;">🎞️</div>
+            <h4 style="color: var(--gold-600); margin: 0 0 8px 0; font-family: var(--font-serif); font-size: 1.5rem;">Digital Photo Booth</h4>
+            <p id="pb-hint" style="font-size: 0.85rem; color: var(--rose-900); margin-bottom: 16px; line-height: 1.5;">Tinggalkan kenangan termanis untuk pengantin!<br>Ambil 3 keping gambar dengan gaya bebas.</p>
+            <button type="button" class="btn-gold" id="btn-photobooth" style="width: 100%; border-radius: 99px; font-size: 1.1rem; padding: 12px; box-shadow: 0 4px 12px rgba(201, 162, 75, 0.4);">Buka Kamera 📸</button>
+            
+            <div id="preview-container" style="display:none; margin-top: 16px;">
+              <img id="photo-preview" style="width: 100%; max-height: 400px; object-fit: contain; border-radius: 8px; border: 2px solid var(--gold-300);" />
+              <button type="button" id="btn-remove-photo" style="margin-top:12px; width:100%; padding:10px; background:none; border:1px solid var(--rose-800); color:var(--rose-800); border-radius:8px; font-weight:bold;">Batalkan Gambar 🗑️</button>
+            </div>
           </div>
           <button class="btn-gold btn-block" type="submit" id="btn-submit">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12c0 4.1-4 7.4-9 7.4-1 0-2-.1-2.9-.4L4 20.5l1.3-3.4C3.9 15.8 3 14 3 12c0-4.1 4-7.4 9-7.4s9 3.3 9 7.4z"/></svg>
@@ -259,7 +264,7 @@
         </form>
 
         <div class="ucapan-wrap" data-reveal>
-          <h3 class="ucapan-title">Doa &amp; Harapan <span id="ucapan-count" class="ucapan-count"></span></h3>
+          <h3 class="ucapan-title">Buku Tetamu &amp; Ucapan <span id="ucapan-count" class="ucapan-count"></span></h3>
           <div class="ucapan-list" id="ucapan-list" aria-live="polite"></div>
         </div>
       </div>
@@ -333,9 +338,12 @@
     <img id="pb-strip" style="display:none; width:100%; height:75vh; object-fit:contain; background:#fff; padding:10px;" />
     <div id="pb-timer" style="position:absolute; top:40%; font-size:8rem; color:#fff; font-weight:bold; text-shadow:0 4px 20px rgba(0,0,0,0.8); z-index:10000;"></div>
     <div id="pb-flash" style="display:none; position:absolute; inset:0; background:#fff; z-index:9998; opacity:0; transition: opacity 0.2s;"></div>
-    <div style="padding:20px; width:100%; text-align:center;">
+        <div style="padding:20px; width:100%; text-align:center; display:flex; flex-direction:column; gap:10px;">
       <button type="button" id="pb-start" class="btn-gold" style="width:100%; padding:15px; font-size:1.2rem;">Mula (3 Gambar)</button>
-      <button type="button" id="pb-done" class="btn-gold" style="display:none; width:100%; padding:15px; font-size:1.2rem;">Guna Gambar Ini</button>
+      <div id="pb-actions" style="display:none; width:100%; gap:10px;">
+        <button type="button" id="pb-retake" class="btn-gold" style="flex:1; padding:15px; background: #fff; color: var(--gold-500); border: 2px solid var(--gold-500);">Ambil Semula</button>
+        <button type="button" id="pb-done" class="btn-gold" style="flex:2; padding:15px; font-size:1.2rem;">Guna Gambar Ini</button>
+      </div>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>

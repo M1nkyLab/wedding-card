@@ -450,21 +450,13 @@ async function renderMessages() {
     msg.className = "u-msg";
     msg.textContent = m.message || "";
     
-    body.append(head, time, msg);
-    
-    if (m.photoData) {
+        if (m.photoData) {
       const img = document.createElement("img");
       img.src = m.photoData;
-      img.style.width = "100%";
-      img.style.maxHeight = "200px";
-      img.style.objectFit = "cover";
-      img.style.borderRadius = "8px";
-      img.style.marginTop = "10px";
-      img.style.border = "1px solid rgba(0,0,0,0.1)";
-      body.append(img);
+      item.append(img);
     }
-    
-    item.append(avatar, body);
+    body.append(head, msg);
+    item.append(body);
     list.append(item);
   });
 
@@ -477,7 +469,12 @@ function initRSVP() {
   const video = document.getElementById("pb-video");
   const btnClose = document.getElementById("pb-close");
   const btnStart = document.getElementById("pb-start");
-  const btnDone = document.getElementById("pb-done");
+    const btnDone = document.getElementById("pb-done");
+  const btnRetake = document.getElementById("pb-retake");
+  const pbActions = document.getElementById("pb-actions");
+  const previewContainer = document.getElementById("preview-container");
+  const btnRemovePhoto = document.getElementById("btn-remove-photo");
+  const pbHint = document.getElementById("pb-hint");
   const timerDiv = document.getElementById("pb-timer");
   const flashDiv = document.getElementById("pb-flash");
   const stripImg = document.getElementById("pb-strip");
@@ -491,10 +488,10 @@ function initRSVP() {
       try {
         stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
         video.srcObject = stream;
-        video.style.display = "block";
+                video.style.display = "block";
         stripImg.style.display = "none";
         btnStart.style.display = "block";
-        btnDone.style.display = "none";
+        pbActions.style.display = "none";
         modal.style.display = "flex";
         photos = [];
       } catch (err) {
@@ -570,9 +567,9 @@ function initRSVP() {
           if (loaded === 3) {
             finalPhotoStripBase64 = stripCanvas.toDataURL("image/jpeg", 0.6);
             stripImg.src = finalPhotoStripBase64;
-            video.style.display = "none";
+                        video.style.display = "none";
             stripImg.style.display = "block";
-            btnDone.style.display = "block";
+            pbActions.style.display = "flex";
           }
         };
         img.src = photos[i];
@@ -580,10 +577,29 @@ function initRSVP() {
     });
   }
 
+    if (btnRetake) {
+    btnRetake.addEventListener("click", () => {
+      stripImg.style.display = "none";
+      pbActions.style.display = "none";
+      video.style.display = "block";
+      btnStart.style.display = "block";
+      photos = [];
+    });
+  }
+
+  if (btnRemovePhoto) {
+    btnRemovePhoto.addEventListener("click", () => {
+      finalPhotoStripBase64 = "";
+      previewContainer.style.display = "none";
+      pbHint.style.display = "block";
+    });
+  }
+
   if (btnDone) {
     btnDone.addEventListener("click", () => {
       preview.src = finalPhotoStripBase64;
-      preview.style.display = "block";
+      previewContainer.style.display = "block";
+      pbHint.style.display = "none";
       if(stream) stream.getTracks().forEach(t => t.stop());
       modal.style.display = "none";
     });
@@ -626,8 +642,7 @@ function initRSVP() {
     } else {
         await renderMessages();
     }form.reset();
-    const preview = document.getElementById("photo-preview");
-    if(preview) preview.style.display = "none";
+    const pc = document.getElementById("preview-container"); if(pc) pc.style.display = "none"; finalPhotoStripBase64 = ""; const ph = document.getElementById("pb-hint"); if(ph) ph.style.display = "block";
     if(btnSubmit) { btnSubmit.disabled = false; btnSubmit.innerHTML = "Hantar Ucapan"; }
     const guest = getGuestName();
     if (guest) form.nama.value = guest;
