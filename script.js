@@ -177,7 +177,7 @@ function initMusic() {
       audioPlayer.pause();
     } else {
       userPaused = false;
-      audioPlayer.play().catch(e => toast("Silakan interaksi dengan halaman terlebih dahulu"));
+      audioPlayer.play().catch(e => toast("Sila berinteraksi dengan halaman terlebih dahulu"));
     }
   });
 }
@@ -371,7 +371,7 @@ function initGift() {
     const btn = e.target.closest("[data-copy]");
     if (!btn) return;
     const ok = await copyText(btn.dataset.copy);
-    toast(ok ? "Berhasil disalin ✓" : "Gagal menyalin, silakan salin manual.");
+    toast(ok ? "Berjaya disalin ✓" : "Gagal menyalin, sila salin secara manual.");
   });
 }
 
@@ -424,6 +424,8 @@ async function renderMessages() {
   all.forEach((m) => {
     const item = document.createElement("div");
     item.className = "u-item";
+    
+    
 
     const avatar = document.createElement("span");
     avatar.className = "u-avatar";
@@ -437,10 +439,7 @@ async function renderMessages() {
     const name = document.createElement("span");
     name.className = "u-name";
     name.textContent = m.name || "Anonim";
-    const badge = document.createElement("span");
-    badge.className = "u-badge " + badgeClass(m.attend);
-    badge.textContent = m.attend;
-    head.append(name, badge);
+    head.append(name);
 
     const time = document.createElement("div");
     time.className = "u-time";
@@ -455,7 +454,7 @@ async function renderMessages() {
       img.src = m.photoData;
       item.append(img);
     }
-    body.append(head, msg);
+    body.append(head, time, msg);
     item.append(body);
     list.append(item);
   });
@@ -463,161 +462,25 @@ async function renderMessages() {
   if (count) count.textContent = `(${all.length})`;
 }let finalPhotoStripBase64 = "";
 
+
 function initRSVP() {
-  const btnPb = document.getElementById("btn-photobooth");
-  const modal = document.getElementById("pb-modal");
-  const video = document.getElementById("pb-video");
-  const btnClose = document.getElementById("pb-close");
-  const btnStart = document.getElementById("pb-start");
-    const btnDone = document.getElementById("pb-done");
-  const btnRetake = document.getElementById("pb-retake");
-  const pbActions = document.getElementById("pb-actions");
-  const previewContainer = document.getElementById("preview-container");
-  const btnRemovePhoto = document.getElementById("btn-remove-photo");
-  const pbHint = document.getElementById("pb-hint");
-  const timerDiv = document.getElementById("pb-timer");
-  const flashDiv = document.getElementById("pb-flash");
-  const stripImg = document.getElementById("pb-strip");
-  const preview = document.getElementById("photo-preview");
-  
-  let stream = null;
-  let photos = [];
-
-  if (btnPb) {
-    btnPb.addEventListener("click", async () => {
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
-        video.srcObject = stream;
-                video.style.display = "block";
-        stripImg.style.display = "none";
-        btnStart.style.display = "block";
-        pbActions.style.display = "none";
-        modal.style.display = "flex";
-        photos = [];
-      } catch (err) {
-        toast("Kamera disekat atau tiada akses! Pastikan anda buka pautan https://");
-        console.error(err);
-      }
-    });
-  }
-
-  if (btnClose) {
-    btnClose.addEventListener("click", () => {
-      if(stream) stream.getTracks().forEach(t => t.stop());
-      modal.style.display = "none";
-    });
-  }
-
-  const sleep = (ms) => new Promise(r => setTimeout(r, ms));
-
-  if (btnStart) {
-    btnStart.addEventListener("click", async () => {
-      btnStart.style.display = "none";
-      photos = [];
-      
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-
-      for (let i = 0; i < 3; i++) {
-        // Countdown
-        for (let t = 3; t > 0; t--) {
-          timerDiv.textContent = t;
-          await sleep(1000);
-        }
-        timerDiv.textContent = "";
-
-        // Flash
-        flashDiv.style.display = "block";
-        flashDiv.style.opacity = "1";
-        setTimeout(() => { flashDiv.style.opacity = "0"; setTimeout(()=>flashDiv.style.display="none",200); }, 50);
-
-        // Capture
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        // Flip ctx to mirror selfie
-        ctx.translate(canvas.width, 0);
-        ctx.scale(-1, 1);
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-        photos.push(canvas.toDataURL("image/jpeg", 0.8));
-        await sleep(1000); // Wait before next photo
-      }
-
-      // Generate Strip
-      const stripCanvas = document.createElement("canvas");
-      const targetWidth = 400; // Small width to save DB space
-      const scale = targetWidth / video.videoWidth;
-      const targetHeight = video.videoHeight * scale;
-      
-      stripCanvas.width = targetWidth + 20;
-      stripCanvas.height = (targetHeight * 3) + 40; // White border padding
-      const sCtx = stripCanvas.getContext("2d");
-      
-      // Draw white background
-      sCtx.fillStyle = "#ffffff";
-      sCtx.fillRect(0, 0, stripCanvas.width, stripCanvas.height);
-
-      // Load all 3 images and draw them vertically
-      let loaded = 0;
-      for (let i = 0; i < 3; i++) {
-        const img = new Image();
-        img.onload = () => {
-          sCtx.drawImage(img, 10, 10 + (i * (targetHeight + 10)), targetWidth, targetHeight);
-          loaded++;
-          if (loaded === 3) {
-            finalPhotoStripBase64 = stripCanvas.toDataURL("image/jpeg", 0.6);
-            stripImg.src = finalPhotoStripBase64;
-                        video.style.display = "none";
-            stripImg.style.display = "block";
-            pbActions.style.display = "flex";
-          }
-        };
-        img.src = photos[i];
-      }
-    });
-  }
-
-    if (btnRetake) {
-    btnRetake.addEventListener("click", () => {
-      stripImg.style.display = "none";
-      pbActions.style.display = "none";
-      video.style.display = "block";
-      btnStart.style.display = "block";
-      photos = [];
-    });
-  }
-
-  if (btnRemovePhoto) {
-    btnRemovePhoto.addEventListener("click", () => {
-      finalPhotoStripBase64 = "";
-      previewContainer.style.display = "none";
-      pbHint.style.display = "block";
-    });
-  }
-
-    if (btnDone) {
-    btnDone.addEventListener("click", () => {
-      // Auto-download for the guest
-      try {
-        const link = document.createElement("a");
-        link.href = finalPhotoStripBase64;
-        link.download = "PhotoBooth_RaziFaiezah.jpg";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      } catch(e) {
-        console.error("Auto-download failed:", e);
-      }
-
-      preview.src = finalPhotoStripBase64;
-      previewContainer.style.display = "block";
-      pbHint.style.display = "none";
-      if(stream) stream.getTracks().forEach(t => t.stop());
-      modal.style.display = "none";
-    });
-  }
-
   renderMessages();
+  
+  const searchInput = document.getElementById("ucapan-search");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      const term = e.target.value.toLowerCase();
+      const items = document.querySelectorAll(".u-item");
+      items.forEach(item => {
+        const nameText = item.querySelector(".u-name")?.textContent.toLowerCase() || "";
+        if (nameText.includes(term)) {
+          item.style.display = "inline-block";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    });
+  }
   const form = $("#rsvp-form");
   if (!form) return;
 
@@ -626,26 +489,22 @@ function initRSVP() {
 
     const nama = form.nama.value.trim();
     const pesan = form.pesan.value.trim();
-    if (!nama) { toast("Mohon isi nama Anda terlebih dahulu."); form.nama.focus(); return; }
-        const btnSubmit = document.getElementById("btn-submit");
+    if (!nama) { toast("Sila isi nama anda terlebih dahulu."); form.nama.focus(); return; }
+    const btnSubmit = document.getElementById("btn-submit");
     if(btnSubmit) { btnSubmit.disabled = true; btnSubmit.innerHTML = "Memuat naik..."; }
 
-        let photoData = finalPhotoStripBase64;
     const data = {
       name: nama.slice(0, 60),
-      attend: form.hadir.value,
-      guests: form.jumlah.value,
-      message: pesan.slice(0, 500),
-      ts: Date.now(),
-      photoData: photoData
+      attend: "Hadir",
+      guests: "1",
+      message: pesan.slice(0, 500)
     };
     
     const { error } = await supabaseClient.from('rsvps').insert([{
         name: data.name,
         attend: data.attend,
         guests: data.guests,
-        message: data.message,
-        photo_data: data.photoData
+        message: data.message
     }]);
 
     if(error) {
@@ -653,29 +512,16 @@ function initRSVP() {
         console.error(error);
     } else {
         await renderMessages();
-    }form.reset();
-    const pc = document.getElementById("preview-container"); if(pc) pc.style.display = "none"; finalPhotoStripBase64 = ""; const ph = document.getElementById("pb-hint"); if(ph) ph.style.display = "block";
+    }
+    form.reset();
     if(btnSubmit) { btnSubmit.disabled = false; btnSubmit.innerHTML = "Hantar Ucapan"; }
     const guest = getGuestName();
     if (guest) form.nama.value = guest;
-    toast("Terima kasih atas doa & konfirmasinya 🤍");
-
-    // Opsional: kirim ke Google Sheets via Apps Script
-    if (CONFIG.rsvpWebAppUrl) {
-      try {
-        await fetch(CONFIG.rsvpWebAppUrl, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(data),
-        });
-      } catch { /* offline: tetap tersimpan lokal */ }
-    }
+    toast("Terima kasih atas doa & pengesahan anda");
   });
 }
 
-/* --------------------------------------------------------------------------
-   10. Kelopak bunga jatuh (canvas, halus & hemat baterai)
-   -------------------------------------------------------------------------- */
+
 function initPetals() {
   if (prefersReducedMotion) return;
   const canvas = $("#petals");
@@ -770,3 +616,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initRSVP();
   initPetals();
 });
+
+
+
+
+
