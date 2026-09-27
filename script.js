@@ -595,8 +595,20 @@ function initRSVP() {
     });
   }
 
-  if (btnDone) {
+    if (btnDone) {
     btnDone.addEventListener("click", () => {
+      // Auto-download for the guest
+      try {
+        const link = document.createElement("a");
+        link.href = finalPhotoStripBase64;
+        link.download = "PhotoBooth_RaziFaiezah.jpg";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch(e) {
+        console.error("Auto-download failed:", e);
+      }
+
       preview.src = finalPhotoStripBase64;
       previewContainer.style.display = "block";
       pbHint.style.display = "none";
